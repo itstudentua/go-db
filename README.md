@@ -13,4 +13,5 @@ RUN COMMAND:
 
 RUN `main.go` file.
 
-# -v ~/Desktop/postgres_db:/var/lib/postgresql/data \
+
+`-v ~/Desktop/postgres_db:/var/lib/postgresql/data \` – volumes for desktop
