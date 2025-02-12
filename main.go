@@ -11,10 +11,12 @@ import (
 const userName = "illia"
 const userPass = "2204illia"
 const dbName = "english_db"
+const dbHost = "localhost"
+const dbPort = 5432
 const englishTableName = "EnglishWords"
 
 func main() {
-	connString := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", userName, userPass, dbName)
+	connString := fmt.Sprintf("postgres://%s:%s@%s:%d/%s", userName, userPass, dbHost, dbPort, dbName)
 
 	conn, err := pgx.Connect(context.Background(), connString)
 
@@ -34,7 +36,12 @@ func main() {
 
 	CreateTable(conn)
 
-	InsertData(conn, "intention", "намерение")
+	words := []string{"article", "band", "bank", "below", "bill", "boot", "break", "chart", "cost", "paint"}
+	translations := []string{"статья, материал", "группа, полоса", "хранилище", "ниже, под, внизу", "законопроект, счет, закон, билль", "загрузка, ботинок, багажник",
+		"перерыв, разрыв, сломать", "график, диаграмма", "цена, стоимость", "краска, живопись, рисунок, грим"}
+	for i := 0; i < len(words); i++ {
+		InsertData(conn, words[i], translations[i])
+	}
 
 	GetData(conn)
 	//DeleteTable(conn)
